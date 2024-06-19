@@ -24,11 +24,14 @@ shop page
 </div>
 {% for product in products %}
     <div class="start">
-        <img src="{{ url_for('shop.static', filename = '/image/') }}{{ product.name }}.png" alt="">
+        <img src="{{ url_for('shop.static', filename = '/image/') }}{{ product.name }}.png" alt="" class="product-img">
         {% if admin %}
-            <button class = "editorButton img">
-                <img src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
-            </button>
+            <form action="" method="post">
+                <button class = "editorButton img" name="img" type="submit" value="{{product.id}}">
+                    <img  src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
+                </button>
+            </form>
+           
         {% endif %}
         <div class = "product">
             <div class = "inner">
@@ -36,10 +39,12 @@ shop page
             
             {% if admin %}
                 <h1>{{ product.name }}
-                <button class = "editorButton name">
-                    <img src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
-                </button>
+                    <button class = "editorButton name">
+                        <img src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
+                    </button>
                 </h1>  
+                
+                
                 <h3 class="price">{{ product.price}} грн
                     <button class = "editorButton priceButton">
                         <img src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
@@ -72,7 +77,7 @@ shop page
             <h3 class="capacity">Ємність:</h3>
             {% if admin %}
                 <div>
-                    <button>256 Гб
+                    <button >256 Гб
                         <button class = "editorButton b1">
                             <img src="{{ url_for('shop.static', filename = '/image/') }}Vector.png" class = "editorImg" alt="">
                         </button>
@@ -108,4 +113,18 @@ shop page
    
     
 {% endfor %}
+{% if mod %}
+    <form class="modal_window" method="post">
+        {% if type == "TEXT" %}
+            <h1>CHANGE TEXT:</h1>
+            <input type="text" name="text" id="">
+        {% elif type == "IMG" %}
+            <h1>CHANGE IMAGE</h1>
+            <input type = "file" name = "image" accept= "image/*">
+        {% endif %}
+        <button class="send_button" name = "send" value = "{{id}};type1">SEND</button>
+    </form>
+    <div class="background"></div>
+{% endif %}
+<!-- <canvas id="canvas"></canvas> -->
 {% endblock %}
